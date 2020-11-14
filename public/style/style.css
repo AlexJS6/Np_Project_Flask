@@ -1,0 +1,58 @@
+#selection_container {
+    background-color: rgb(230, 227, 227);
+}
+#one_way {
+    border: 1px solid black;
+    height: 40px;
+    width: 100px;
+    border-radius: 10px;
+    background-color: rgb(126, 191, 218);
+    box-shadow: 2px 2px 2px gray;
+}
+#roundtrip {
+    border: 1px solid black;
+    height: 40px;
+    width: 100px;
+    border-radius: 10px;
+    background-color: rgb(126, 191, 218);
+    box-shadow: 2px 2px 2px gray;
+}
+
+.big_input {
+    width: 320px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px gray;
+}
+.icon {
+    position: absolute;
+    margin-top: 8px;
+    margin-left: 5px;
+}
+#agenda_buttons {
+    width: 145px;
+    height: 40px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px gray;
+}
+.agenda_icon {
+    position: absolute;
+    margin-top: 14px;
+    margin-left: 7px;
+}
+#submit_button {
+    border: 1px solid gray;
+    width: 320px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgb(41, 170, 202);
+    font-size: large;
+    box-shadow: 2px 2px 2px gray;
+}
+#register_button {
+    border-radius: 5px;
+    background-color: #fff;
+    height: 40px;
+    width: 120px;
+    font-size: large;
+}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Sign In{% endblock %}
+{% block content %}
+<!--SIGN IN FORM START-->
+
+<div class="container mt-5 mb-4" id="selection_container">
+    <div class="row">
+        <div class="col-6 offset-4 mb-2 mt-3">
+            <h3>Sign In!</h3>
+        </div>
+    </div>
+    <form action="user/signin" method="POST">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" name="email" class="form-control" placeholder="test@gmail.com"><br>
+        </div>
+        <div class="form-group mt-n2">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" name="password" placeholder="********"><br>
+        </div>
+        <button type="submit" class="offset-4 mb-3" id="register_button">Log In</button>
+    </form>
+    <div class="row">
+        <div class="col-12 mb-2">
+            <a href="/signup">No account yet?</a>
+        </div>
+        <div class="col-12 mb-4">
+            <a href="/">Already logged in?</a>
+        </div>
+    </div>
+</div>
+
+<!--SIGN IN FORM END-->
+{% endblock %}

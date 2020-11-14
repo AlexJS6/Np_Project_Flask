@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Index{% endblock %}
+{% block content %} 
+
+
+  <!-- CATEGORYS START-->
+  <div class="row">
+    <div class="col-xs-3 offset-2 pt-3 mt-4 px-3 pb-2">
+        <a href="">
+            <i class="fas fa-building fa-3x"></i>
+        </a>
+        <h5 class="pt-2">Stays</h5>
+    </div>
+    <div class="col-xs-3 px-3 pt-3 mt-4 ml-2 pb-2">
+        <a href="">
+            <i class="fas fa-plane fa-3x"></i>
+        </a>
+        <h5 class="pt-2">Flights</h5>
+    </div>
+    <div class="col-xs-3 pt-3 mt-4 px-3 ml-2 pb-2">
+        <a href="">
+            <i class="fas fa-car fa-3x"></i>
+        </a>
+        <h5 class="pt-2">Cars</h5>
+    </div>
+</div>
+<!-- CATEGORYS END-->
+
+<!-- SELECTION START -->
+<div class="container mb-4" id="selection_container">
+    <div class="row">
+        <div class="col-xs-4 offset-2 mt-3">
+            <button id="one_way" href="#">One Way</button>
+        </div>
+        <div class="col-xs-4 offset-2 mt-3">
+            <button id="one_way" href="#">Roundtrip</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-10 offset-1 mt-4">
+            <i class="fas fa-plane-departure icon"></i>
+            <input type="text" placeholder="       Departure from..." class="big_input">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-10 offset-1 mt-3">
+            <i class="fas fa-plane-arrival icon"></i>
+            <input type="text" placeholder="       Arrival at..." class="big_input">
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-xs-4 offset-1">
+            <i class="fas fa-calendar-alt fa-lg agenda_icon"></i>
+            <input type="button" value="    Departure" id="agenda_buttons">
+        </div>
+        <div class="col-xs-4 offset-1">
+            <i class="fas fa-calendar-alt fa-lg agenda_icon"></i>
+            <input type="button" value="    Returning" id="agenda_buttons">
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-xs-4 offset-2">
+            <a href="">2 travellers</a>
+        </div>
+        <div class="col-xs-4 offset-2">
+            <a href="">economy</a>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-xs-10 offset-1 mb-5">
+            <input type="submit" value="Search" id="submit_button">
+        </div>
+    </div>
+</div>
+<!--<button id="roundtrip" href="#">Roundtrip</button>-->
+<!--<button id="one_way" href="#">One Way</button>-->
+
+
+<!-- SELECTION END -->
+{% endblock %}
