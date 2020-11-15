@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, request, session
+from flask import Flask, redirect, url_for, render_template, request, session, flash
 from datetime import timedelta
 
 app = Flask(__name__)
@@ -42,6 +42,9 @@ def signup():
 
 @app.route('/logout')
 def logout():
+    if 'email' in session:
+        email = session['email']
+        flash(f'You have been logged out successfully: {email}', 'info')
     session.pop('email', None)
     return redirect(url_for('signin'))
 
