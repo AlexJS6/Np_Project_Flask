@@ -1,6 +1,9 @@
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template, request, session
+from datetime import timedelta
 
 app = Flask(__name__)
+app.secret_key = 'hello'
+app.permanent_session_lifetime = timedelta(hours = 24)
 
 @app.route('/')
 def index():
@@ -13,19 +16,34 @@ def flights():
 @app.route('/signin', methods = ['POST', 'GET'])
 def signin():
     if request.method == 'POST':
+        session.permanent = True
         email = request.form['email']
         password = request.form['password']
-        return redirect(url_for('user', email = email, pwd = password))
+        session['email'] = email
+        return redirect(url_for('user'))
     else:
+        if 'email' in session:
+            return redirect(url_for('user'))
+
         return render_template('signin.html')
 
-@app.route('/<email>/<pwd>')
-def user(email, pwd):
-    return f'<h1>Email: {email}, Password: {pwd}</h1>'
+@app.route('/user')
+def user():
+    if 'email' in session:
+        email = session['email']
+        return f'<h1>This is your email: {email} :)</h1>'
+    else:
+        return redirect(url_for('signin'))
+
 
 @app.route('/signup')
 def signup():
         return render_template('signup.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('email', None)
+    return redirect(url_for('signin'))
 
 if __name__ == "__main__":
     app.run(debug=True)
