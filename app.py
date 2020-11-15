@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, request
 
 app = Flask(__name__)
 
@@ -10,9 +10,18 @@ def index():
 def flights():
     return render_template('flights.html')
 
-@app.route('/signin')
+@app.route('/signin', methods = ['POST', 'GET'])
 def signin():
-    return render_template('signin.html')
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        return redirect(url_for('user', email = email, pwd = password))
+    else:
+        return render_template('signin.html')
+
+@app.route('/<email>/<pwd>')
+def user(email, pwd):
+    return f'<h1>Email: {email}, Password: {pwd}</h1>'
 
 @app.route('/signup')
 def signup():
