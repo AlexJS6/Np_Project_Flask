@@ -11,6 +11,21 @@ app.permanent_session_lifetime = timedelta(hours = 24)
 
 db = SQLAlchemy(app)
 
+url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/SFO-sky/JFK-sky/2020-11-20"
+
+querystring = {"inboundpartialdate":"2019-12-01"}
+
+headers = {
+    'x-rapidapi-key': "089d02225bmshefa31c6ca5f2456p154c11jsnebd679e760b4",
+    'x-rapidapi-host': "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
+    }
+
+
+@app.route('/api')
+def api():
+    return str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])
+
+
 
 class users(db.Model):
     _id = db.Column('id', db.Integer, primary_key = True)
