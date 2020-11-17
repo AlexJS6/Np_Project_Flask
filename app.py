@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
+import requests
 
 app = Flask(__name__)
 app.secret_key = 'hello'
@@ -8,20 +9,39 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.permanent_session_lifetime = timedelta(hours = 24)
 
-
 db = SQLAlchemy(app)
+
 
 class users(db.Model):
     _id = db.Column('id', db.Integer, primary_key = True)
-    password = db.Column(db.String(100))
+    firstname = db.Column(db.String(100))
+    lastname = db.Column(db.String(100))
     email = db.Column(db.String(100))
+    password = db.Column(db.String(100))
 
-    def __init__(self, password, email):
-        self.password = password
+
+    def __init__(self, password, email, lastname, firstname):
+        self.firstname = firstname
+        self.lastname = lastname
         self.email = email
+        self.password = password
 
-@app.route('/')
+
+@app.route('/show_test')
+def show_all():
+    return render_template('show_all.html', users = users.query.all())
+
+@app.route('/', methods = ['GET', 'POST'])
 def index():
+    if request.method == 'POST':
+        if not request.form['firstname'] or not request.form['lastname'] or not request.form['email'] or not request.form['password'] or not request.form['passwordconfirm']:
+            return redirect(url_for('signup'))
+        else:
+            user = users(request.form['password'], request.form['email'], request.form['lastname'], request.form['firstname'])
+            db.session.add(user)
+            db.session.commit()
+            #flash(f'Welcome {user[0]}!')
+            return redirect(url_for('show_all'))
     return render_template('index.html')
 
 @app.route('/flights')

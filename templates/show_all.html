@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for msg in get_flashed_messages() %}
+        <p>{{msg}}</p>
+    {% endfor %}
+    <table>
+        <thead>
+            <td><h3>firstname</h3></td>
+            <td><h3>lastname</h3></td>
+            <td><h3>email</h3></td>
+            <td><h3>password</h3></td>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td><h3>{{ user.firstname }}</h3></td>
+                <td><h3>{{ user.lastname }}</h3></td>
+                <td><h3>{{ user.email }}</h3></td>
+                <td><h3>{{ user.password }}</h3></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
