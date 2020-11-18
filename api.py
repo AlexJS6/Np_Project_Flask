@@ -25,6 +25,6 @@ def flight_api():
 
         departure_date =  str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['OutboundLeg']['DepartureDate'])
         price = str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])
-        return f'Hello the price is {price} and you leave the {departure_date}'
+        return f'<h1>Hello the price is {price} and you leave the {departure_date}</h1>'
         #return str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])
        

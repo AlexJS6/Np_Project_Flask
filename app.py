@@ -2,13 +2,18 @@ from flask import Flask, redirect, url_for, render_template, request, session, f
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 import requests
+
 from second import second
 from api import api
+#from session import session
 
 app = Flask(__name__)
+
 app.register_blueprint(second, url_prefix="")
 
 app.register_blueprint(api, url_prefix="/api")
+
+#app.register_blueprint(session, url_prefix="")
 
 app.secret_key = 'hello'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
@@ -18,7 +23,7 @@ app.permanent_session_lifetime = timedelta(hours = 24)
 db = SQLAlchemy(app)
 
 
-'''@app.route('/flight', methods = ['POST', 'GET'])
+@app.route('/flight', methods = ['POST', 'GET'])
 def api():
     if request.method == 'GET':
         country = request.args.get('country')
@@ -41,12 +46,9 @@ def api():
         price = str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])
         return f'Hello the price is {price} and you leave the {departure_date}'
         #return str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])
-      ''' 
+      
 
  
-
-
-
 
 
 
@@ -86,6 +88,16 @@ def index():
 def flights():
     return render_template('flights.html')
 
+@app.route('/user')
+def user():
+    if 'email' in session:
+        email = session['email']
+        return f'<h1>This is your email: {email} :)</h1>'
+    else:
+        return redirect(url_for('signin'))
+
+
+
 @app.route('/signin', methods = ['POST', 'GET'])
 def signin():
     if request.method == 'POST':
@@ -100,15 +112,6 @@ def signin():
 
         return render_template('signin.html')
 
-@app.route('/user')
-def user():
-    if 'email' in session:
-        email = session['email']
-        return f'<h1>This is your email: {email} :)</h1>'
-    else:
-        return redirect(url_for('signin'))
-
-
 @app.route('/signup')
 def signup():
         return render_template('signup.html')
@@ -120,6 +123,7 @@ def logout():
         flash(f'You have been logged out successfully: {email}', 'info')
     session.pop('email', None)
     return redirect(url_for('signin'))
+    
 
 if __name__ == "__main__":
     db.create_all()
