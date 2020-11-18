@@ -2,8 +2,14 @@ from flask import Flask, redirect, url_for, render_template, request, session, f
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 import requests
+from second import second
+from api import api
 
 app = Flask(__name__)
+app.register_blueprint(second, url_prefix="")
+
+app.register_blueprint(api, url_prefix="/api")
+
 app.secret_key = 'hello'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -12,9 +18,7 @@ app.permanent_session_lifetime = timedelta(hours = 24)
 db = SQLAlchemy(app)
 
 
-
-
-@app.route('/api', methods = ['POST', 'GET'])
+'''@app.route('/flight', methods = ['POST', 'GET'])
 def api():
     if request.method == 'GET':
         country = request.args.get('country')
@@ -37,7 +41,9 @@ def api():
         price = str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])
         return f'Hello the price is {price} and you leave the {departure_date}'
         #return str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])
-        
+      ''' 
+
+ 
 
 
 
@@ -118,3 +124,9 @@ def logout():
 if __name__ == "__main__":
     db.create_all()
     app.run(debug=True)
+
+
+
+
+
+
