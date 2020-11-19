@@ -23,7 +23,7 @@ def flight_api():
         'x-rapidapi-host': "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
         }
 
-        departure_date =  str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['OutboundLeg']['DepartureDate'])
+        departure_date =  str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['OutboundLeg']['DepartureDate'][:10])
         departure_time = str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['QuoteDateTime'][-8:])
         price = str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])
         carrier_id = str(requests.request("GET", url, headers=headers, params = querystring).json()['Carriers'][0]['CarrierId'])
@@ -40,4 +40,4 @@ def flight_api():
         #return f'<h1>Hello the price is {price} and you leave the {departure_date}</h1>'
         #return str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])'''
         #return requests.request('GET', url, headers = headers, params = querystring).json()
-        return f'<div style="background-color: red"><p>This is the best flight:</p><h2>price: {price} and leaves: {departure_time}, good trip</h2></div>'
+        return f'<div style="background-color: red"><p>{departure_date}</br>{departure_time}</br>{price}</br>{carrier_id}</br>{name}</br>{symbol}</br>{origin_country}</br>{origin_city}</br>{origin_airport}</br>{destination_country}</br>{destination_city}</br>{destination_airport}</br>{direct}</p></div>'
