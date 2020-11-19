@@ -56,3 +56,6 @@
     width: 120px;
     font-size: large;
 }
+#ticket {
+    background: url('../images/ticket.jpg');
+}
