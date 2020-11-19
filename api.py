@@ -24,7 +24,20 @@ def flight_api():
         }
 
         departure_date =  str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['OutboundLeg']['DepartureDate'])
+        departure_time = str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['QuoteDateTime'][-8:])
         price = str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])
-        return f'<h1>Hello the price is {price} and you leave the {departure_date}</h1>'
-        #return str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])
-       
+        carrier_id = str(requests.request("GET", url, headers=headers, params = querystring).json()['Carriers'][0]['CarrierId'])
+        name = str(requests.request("GET", url, headers=headers, params = querystring).json()['Carriers'][0]['Name'])
+        symbol = str(requests.request("GET", url, headers=headers, params = querystring).json()['Currencies'][0]['Symbol'])
+        origin_city = str(requests.request("GET", url, headers=headers, params = querystring).json()['Places'][0]['CityName'])
+        origin_country = str(requests.request("GET", url, headers=headers, params = querystring).json()['Places'][0]['CountryName'])
+        origin_airport = str(requests.request("GET", url, headers=headers, params = querystring).json()['Places'][0]['Name'])
+        destination_city = str(requests.request("GET", url, headers=headers, params = querystring).json()['Places'][1]['CityName'])
+        destination_country = str(requests.request("GET", url, headers=headers, params = querystring).json()['Places'][1]['CountryName'])
+        destination_airport = str(requests.request("GET", url, headers=headers, params = querystring).json()['Places'][1]['Name'])
+        direct = str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['Direct'])
+
+        #return f'<h1>Hello the price is {price} and you leave the {departure_date}</h1>'
+        #return str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])'''
+        #return requests.request('GET', url, headers = headers, params = querystring).json()
+        return f'<div style="background-color: red"><p>This is the best flight:</p><h2>price: {price} and leaves: {departure_time}, good trip</h2></div>'

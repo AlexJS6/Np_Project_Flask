@@ -3,6 +3,7 @@ from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 import requests
 
+#from signup_form import SignupForm
 from second import second
 from api import api
 #from session import session
@@ -23,7 +24,7 @@ app.permanent_session_lifetime = timedelta(hours = 24)
 db = SQLAlchemy(app)
 
 
-@app.route('/flight', methods = ['POST', 'GET'])
+'''@app.route('/flight', methods = ['POST', 'GET'])
 def api():
     if request.method == 'GET':
         country = request.args.get('country')
@@ -45,7 +46,7 @@ def api():
         departure_date =  str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['OutboundLeg']['DepartureDate'])
         price = str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])
         return f'Hello the price is {price} and you leave the {departure_date}'
-        #return str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])
+        #return str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])'''
       
 
  
@@ -73,7 +74,7 @@ def show_all():
 
 @app.route('/', methods = ['GET', 'POST'])
 def index():
-    if request.method == 'POST':
+    '''if request.method == 'POST':
         if not request.form['firstname'] or not request.form['lastname'] or not request.form['email'] or not request.form['password'] or not request.form['passwordconfirm']:
             return redirect(url_for('signup'))
         else:
@@ -81,12 +82,12 @@ def index():
             db.session.add(user)
             db.session.commit()
             #flash(f'Welcome {user[0]}!')
-            return redirect(url_for('show_all'))
+            return redirect(url_for('show_all'))'''
     return render_template('index.html')
 
-@app.route('/flights')
+@app.route('/flight_result')
 def flights():
-    return render_template('flights.html')
+    return render_template('flight_result.html')
 
 @app.route('/user')
 def user():
@@ -112,8 +113,21 @@ def signin():
 
         return render_template('signin.html')
 
-@app.route('/signup')
+
+@app.route('/signup', methods = ['GET', 'POST'])
 def signup():
+
+    if request.method == 'POST':
+        if not request.form['firstname'] or not request.form['lastname'] or not request.form['email'] or not request.form['password'] or not request.form['passwordconfirm']:
+            flash('All fields are required.')
+            return render_template('signup.html')
+        else:
+            user = users(request.form['password'], request.form['email'], request.form['lastname'], request.form['firstname'])
+            db.session.add(user)
+            db.session.commit()
+            #flash(f'Welcome {user[0]}!')
+            return redirect(url_for('show_all'))
+    if request.method == 'GET':
         return render_template('signup.html')
 
 @app.route('/logout')
@@ -123,7 +137,7 @@ def logout():
         flash(f'You have been logged out successfully: {email}', 'info')
     session.pop('email', None)
     return redirect(url_for('signin'))
-    
+
 
 if __name__ == "__main__":
     db.create_all()
