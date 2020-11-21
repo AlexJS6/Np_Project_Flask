@@ -139,9 +139,31 @@ def logout():
     return redirect(url_for('signin'))
 
 
+@app.route('/api/processing', methods = ['GET', 'POST'])
+def process_flights():
+    origin_country = request.args.get('origin_country')
+    origin_city = request.args.get('origin_city')
+    origin_airport = request.args.get('origin_airport')
+    date = request.args.get('date')
+    time = request.args.get('time')
+    destination_country = request.args.get('destination_country')
+    destination_city = request.args.get('destination_city')
+    destination_airport = request.args.get('destination_airport')
+    name = request.args.get('name')
+    carrier_id = request.args.get('carrier_id')
+    price = request.args.get('price')
+    symbol = request.args.get('symbol')
+    #return origin_country + origin_city + origin_airport
+    return origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
+
+
+
+
 if __name__ == "__main__":
     db.create_all()
     app.run(debug=True)
+
+
 
 
 
