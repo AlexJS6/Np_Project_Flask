@@ -68,6 +68,10 @@ class users(db.Model):
         self.password = password
 
 
+#class flights(db.Model):
+
+
+
 
 
 @app.route('/show_test')
@@ -85,27 +89,83 @@ def index():
             db.session.commit()
             #flash(f'Welcome {user[0]}!')
             return redirect(url_for('show_all'))'''
-    return render_template('index.html')
+    if 'firstname' in session:
+        return render_template('index.html', navbarname = f"Hello {session['firstname']}")
+    else:
+        return render_template('index.html', navbarname = 'You need to sign in to purchase')
+
+
+
+@app.route('/change_profile')
+def change_profile():
+    if 'firstname' in session:
+        user = users.query.filter_by(firstname = session['firstname'], lastname = session['lastname']).first()
+        firstname = user.firstname
+        lastname = user.lastname
+        email = user.email
+        password = user.password
+        return render_template('change_profile.html', firstname = firstname, lastname = lastname, email = email, password = password)
+    else:
+        redirect(url_for('signin'))
+
+
+@app.route('/change_profile_processing', methods = ['POST'])
+def change_profile_processing():
+    if request.method == 'POST':
+        if not request.form['firstname'] or not request.form['lastname'] or not request.form['email']:
+            flash('All fields are required.')
+            return render_template('change_profile.html')
+        else:
+            old_firstname = session['firstname']
+            old_lastname = session['lastname']
+            user = users.query.filter_by(firstname = old_firstname, lastname = old_lastname).first()
+            user.email = request.form['email']
+            user.firstname = request.form['firstname']
+            user.lastname = request.form['lastname']
+            db.session.commit()
+            session['firstname'] = user.firstname
+            session['lastname'] = user.lastname
+            firstname = user.firstname
+            lastname = user.lastname
+            email = user.email
+            flash('Changes done successfully')
+            return render_template('change_profile.html', firstname = firstname, lastname = lastname, email = email)
 
 
 @app.route('/trains', methods = ["GET", "POST"])
 def trains():
-    return render_template('trains.html')
+    if 'firstname' in session:
+        return render_template('trains.html', navbarname = f"Hello {session['firstname']}")
+    else:
+        return render_template('trains.html', navbarname = 'You need to sign in to purchase')
+
+
 
 
 @app.route('/autobus', methods = ['GET', 'POST'])
 def autobus():
-    return render_template('autobus.html')
+    if 'firstname' in session:
+        return render_template('autobus.html', navbarname = f"Hello {session['firstname']}")
+    else:
+        return render_template('autobus.html', navbarname = 'You need to sign in to purchase')
+
+
 
 @app.route('/flight_result')
 def flights():
-    return render_template('flight_result.html')
+    if 'firstname' in session:
+        return render_template('flight_result.html', navbarname = f"Hello {session['firstname']}")
+    else:
+        return render_template('flight_result.html', navbarname = 'You need to sign in to purchase')
+
+
 
 @app.route('/user')
 def user():
-    if 'email' in session:
-        email = session['email']
-        return f'<h1>This is your email: {email} :)</h1>'
+    if 'firstname' in session and 'lastname' in session:
+        firstname = session['firstname']
+        lastname = session['lastname']
+        return f'<h1>This is your firstname: {firstname} and your last name is: {lastname} :)</h1>'
     else:
         return redirect(url_for('signin'))
 
@@ -117,13 +177,16 @@ def signin():
         session.permanent = True
         email = request.form['email']
         password = request.form['password']
-        session['email'] = email
+        user_session = users.query.filter_by(password=password).first()
+        session['firstname'] = user_session.firstname
+        session['lastname'] = user_session.lastname
         return redirect(url_for('user'))
     else:
-        if 'email' in session:
+        if 'firstname' in session:
             return redirect(url_for('user'))
 
         return render_template('signin.html')
+
 
 
 @app.route('/signup', methods = ['GET', 'POST'])
@@ -137,18 +200,25 @@ def signup():
             user = users(request.form['password'], request.form['email'], request.form['lastname'], request.form['firstname'])
             db.session.add(user)
             db.session.commit()
+            #session['firstname'] = users(request.form['firstname'])
+            #session['lastname'] = users(request.form['lastname'])
             #flash(f'Welcome {user[0]}!')
             return redirect(url_for('show_all'))
     if request.method == 'GET':
         return render_template('signup.html')
+
+
 
 @app.route('/logout')
 def logout():
     if 'email' in session:
         email = session['email']
         flash(f'You have been logged out successfully: {email}', 'info')
-    session.pop('email', None)
+    session.pop('firstname', None)
+    session.pop('lastname', None)
     return redirect(url_for('signin'))
+
+
 
 
 @app.route('/api/processing', methods = ['GET', 'POST'])
@@ -165,7 +235,9 @@ def process_flights():
     carrier_id = request.args.get('carrier_id')
     price = request.args.get('price')
     symbol = request.args.get('symbol')
-    return origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
+    user = users.query.filter_by(firstname='ok').first()
+    lastname = session['lastname']
+    return str(user._id) + lastname + origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
 
 
 
