@@ -7,6 +7,9 @@
         <h1>This is your cart</h1>
     </div>
 </div>
+<div class="row">
+    <h2>Your flights:</h2>
+</div>
 {% if flights %}
     {% for flight in flights %}
     <div class="row">
@@ -19,7 +22,33 @@
 
     {% endfor %}
 {% else %}
-    <h1>No flights</h1>
+    <h3>No flights</h3>
+{% endif %}
+
+<div class="row">
+    <h2>Your train rides</h2>
+</div>
+{% if trains %}
+    {% for train in trains %}
+    <div class="row">
+        <h3>Trains</h3>
+    </div>
+    {% endfor %}
+{% else %}
+    <h3>No Train rides</h3>
+{% endif %}
+
+<div class="row">
+    <h2>Your Bus rides:</h2>
+</div>
+{% if buses %}
+    {% for bus in buses %}
+    <div class="row">
+        <h3>Bus</h3>
+    </div>
+    {% endfor %}
+{% else %}
+    <h3>No Bus rides</h3>
 {% endif %}
             
         
