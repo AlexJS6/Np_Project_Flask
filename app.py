@@ -87,6 +87,11 @@ def index():
             return redirect(url_for('show_all'))'''
     return render_template('index.html')
 
+
+@app.route('/trains', methods = ["GET", "POST"])
+def trains():
+    return render_template('trains.html')
+
 @app.route('/flight_result')
 def flights():
     return render_template('flight_result.html')
