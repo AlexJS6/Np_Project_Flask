@@ -289,7 +289,7 @@ def process_flights():
         db.session.add(flight)
         db.session.commit()
         flash('ticket added to your cart!')
-        return render_template('flight_result')
+        return render_template('flight_result.html')
         #return user_id + origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
     else:
         flash('An Error occured!')
@@ -298,9 +298,9 @@ def process_flights():
 
 @app.route('/cart')
 def cart():
-    flights = flights.query.filter_by(flights._id == session['id'])
-    
-    return render_template('cart.html', flights = flights)
+    #flights = flights.query.all()  filter_by(flights._id == session['id'])
+
+    return render_template('cart.html', flights = flights.query.all())
 
 
 if __name__ == "__main__":
