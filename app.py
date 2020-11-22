@@ -68,6 +68,8 @@ class users(db.Model):
         self.password = password
 
 
+
+
 @app.route('/show_test')
 def show_all():
     return render_template('show_all.html', users = users.query.all())
@@ -153,7 +155,6 @@ def process_flights():
     carrier_id = request.args.get('carrier_id')
     price = request.args.get('price')
     symbol = request.args.get('symbol')
-    #return origin_country + origin_city + origin_airport
     return origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
 
 
