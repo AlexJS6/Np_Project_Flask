@@ -1,4 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash
+from flask_mail import Mail, Message
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 import requests
@@ -9,6 +10,14 @@ from api import api
 #from session import session
 
 app = Flask(__name__)
+mail = Mail(app)
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465 #maybe change
+app.config['MAIL_USERNAME'] = 'VectorNpProject@gmail.com'
+app.config['MAIL_PASSWORD'] = 'npflask22'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
 
 app.register_blueprint(second, url_prefix="")
 
@@ -22,6 +31,19 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.permanent_session_lifetime = timedelta(hours = 24)
 
 db = SQLAlchemy(app)
+
+
+@app.route('/email_processing')
+def email_processing():
+    if 'email' in session:
+        msg = Message('Vector password reset', sender = 'VectorNpProject@gmail.com', recipients= session['email'])
+        msg.body = f"Hello {session['firstname']} {session['lastname']}!"
+        mail.send(msg)
+        return 'message sent!'
+    else:
+        redirect(url_for('index'))
+
+
 
 
 '''@app.route('/flight', methods = ['POST', 'GET'])
@@ -61,14 +83,35 @@ class users(db.Model):
     password = db.Column(db.String(100))
 
 
-    def __init__(self, password, email, lastname, firstname):
+    def __init__(self, firstname, lastname, email, password):
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
         self.password = password
 
 
-#class flights(db.Model):
+
+
+class flights(db.Model):
+    _id = db.Column('id', db.Integer, primary_key = True)
+    user_id = db.Column('user_id', db.Integer)
+    carrier_id = db.Column('carrier_id', db.Integer)
+    price = db.Column('price', db.Integer)
+    symbol = db.Column('symbol', db.String(1))
+    departure_airport = db.Column('departure_airport', db.String(100))
+    destination_airport = db.Column('destination_airport', db.String(100))
+    date = db.Column('date', db.String(50))
+    time = db.Column('time', db.String(50))
+
+    def __init__(self, user_id, carrier_id, price, symbol, departure_airport, destination_airport, date, time):
+        self.user_id = user_id
+        self.carrier_id = carrier_id
+        self.price = price
+        self.symbol = symbol
+        self.departure_airport = departure_airport
+        self.destination_airport = destination_airport
+        self.date = date
+        self.time = time
 
 
 
@@ -152,7 +195,7 @@ def autobus():
 
 
 @app.route('/flight_result')
-def flights():
+def flight_result():
     if 'firstname' in session:
         return render_template('flight_result.html', navbarname = f"Hello {session['firstname']}")
     else:
@@ -177,9 +220,11 @@ def signin():
         session.permanent = True
         email = request.form['email']
         password = request.form['password']
-        user_session = users.query.filter_by(password=password).first()
+        user_session = users.query.filter_by(password = password, email = email).first()
         session['firstname'] = user_session.firstname
         session['lastname'] = user_session.lastname
+        session['email'] = user_session.email
+        session['id'] = user_session._id # !NEED UNDERSCORE!
         return redirect(url_for('user'))
     else:
         if 'firstname' in session:
@@ -197,13 +242,13 @@ def signup():
             flash('All fields are required.')
             return render_template('signup.html')
         else:
-            user = users(request.form['password'], request.form['email'], request.form['lastname'], request.form['firstname'])
+            user = users(request.form['firstname'], request.form['lastname'], request.form['email'], request.form['password'])
             db.session.add(user)
             db.session.commit()
             #session['firstname'] = users(request.form['firstname'])
             #session['lastname'] = users(request.form['lastname'])
             #flash(f'Welcome {user[0]}!')
-            return redirect(url_for('show_all'))
+            return redirect(url_for('sign_in'))
     if request.method == 'GET':
         return render_template('signup.html')
 
@@ -221,25 +266,39 @@ def logout():
 
 
 
-@app.route('/api/processing', methods = ['GET', 'POST'])
+@app.route('/api/processing', methods = ['GET'])
 def process_flights():
-    origin_country = request.args.get('origin_country')
-    origin_city = request.args.get('origin_city')
-    origin_airport = request.args.get('origin_airport')
-    date = request.args.get('date')
-    time = request.args.get('time')
-    destination_country = request.args.get('destination_country')
-    destination_city = request.args.get('destination_city')
-    destination_airport = request.args.get('destination_airport')
-    name = request.args.get('name')
-    carrier_id = request.args.get('carrier_id')
-    price = request.args.get('price')
-    symbol = request.args.get('symbol')
-    user = users.query.filter_by(firstname='ok').first()
-    lastname = session['lastname']
-    return str(user._id) + lastname + origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
+    if request.method == 'GET':
+        user_id = str(session['id'])
+        origin_country = request.args.get('origin_country')
+        origin_city = request.args.get('origin_city')
+        origin_airport = request.args.get('origin_airport')
+        date = request.args.get('date')
+        time = request.args.get('time')
+        destination_country = request.args.get('destination_country')
+        destination_city = request.args.get('destination_city')
+        destination_airport = request.args.get('destination_airport')
+        name = request.args.get('name')
+        carrier_id = request.args.get('carrier_id')
+        price = request.args.get('price')
+        symbol = request.args.get('symbol')
+        #user = users.query.filter_by(firstname='ok').first()
+        #lastname = session['lastname']
+
+        flight = flights(user_id, carrier_id, price, symbol, origin_airport, destination_airport, date, time)
+        db.session.add(flight)
+        db.session.commit()
+        flash('ticket added to your cart!')
+        return render_template('flight_result')
+        #return user_id + origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
+    else:
+        flash('An Error occured!')
+        return render_template('flight_result.html')
 
 
+@app.route('/cart')
+def cart():
+    return render_template('cart.html')
 
 
 if __name__ == "__main__":
