@@ -92,6 +92,11 @@ def index():
 def trains():
     return render_template('trains.html')
 
+
+@app.route('/autobus', methods = ['GET', 'POST'])
+def autobus():
+    return render_template('autobus.html')
+
 @app.route('/flight_result')
 def flights():
     return render_template('flight_result.html')

@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}Index{% endblock %}
+{% block content %} 
+
+
+  <!-- CATEGORYS START-->
+  <div class="row">
+    <div class="col-xs-3 offset-2 pt-3 mt-4 px-3 pb-2">
+        <a href="">
+            <i class="fas fa-subway fa-3x"></i>
+        </a>
+        <h5 class="pt-2">Trains</h5>
+    </div>
+    <div class="col-xs-3 px-3 pt-3 mt-4 ml-2 pb-2">
+        <a href="">
+            <i class="fas fa-plane fa-3x"></i>
+        </a>
+        <h5 class="pt-2 ml-n1">Flights</h5>
+    </div>
+    <div class="col-xs-3 pt-3 mt-4 mx-1 px-2 ml-2 pb-2" style="background-color: #ddd; border-bottom: 6px solid rgb(41, 170, 202);">
+        <a href="">
+            <i class="fas fa-bus fa-3x"></i>
+        </a>
+        <h5 class="pt-2 ml-n1">Autobus</h5>
+    </div>
+</div>
+<!-- CATEGORYS END-->
+
+<!-- SELECTION START -->
+<!--<form action="/api/flight" method='GET'>
+    D<input type="text" placeholder="country" name="country">
+    D<input type="text" placeholder="currency" name="currency">
+    D<input type="text" placeholder="locale" name="locale">
+    D<input type="text" placeholder="originplace" name="originplace">
+    D<input type="text" placeholder="destinationplace" name="destinationplace">
+    D<input type="text" placeholder="outboundpartialdate" name="outboundpartialdate">
+    <input type="submit" value="GO">
+</form>-->
+<form action="/api/flight" method="GET">
+    <div class="container my-3" id="selection_container">
+        <div class="row">
+            <div class="col-xs-4 mt-3 ml-3">
+                <input type="text" placeholder="country" name="country" class="two_inputs_line">
+            </div>
+            <div class="col-xs-4 mt-3 ml-2">
+                <input type="text" placeholder="currency" name="currency" class="two_inputs_line">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1 mt-1">
+                <i class="fas fa-plane-departure icon mt-4"></i>
+            </div>
+            <div class="col-xs-8 offset-1 mt-4">
+                <input type="text" placeholder=" origin airport ex: CRL" name="originplace" class="big_input"><!--<input type="text" placeholder="       Departure from..." class="big_input">-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1 mt-3">
+                <i class="fas fa-plane-arrival icon"></i>
+            </div>
+            <div class="col-xs-10 offset-1 mt-3">
+                <input type="text" placeholder=" destination airport ex: VIE" name="destinationplace" class="big_input"> <!--<input type="text" placeholder="       Arrival at..." class="big_input">-->
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-xs-4 ml-3">
+                <input type="text" placeholder="travel date" name="outboundpartialdate" class="two_inputs_line">
+            </div>
+            <div class="col-xs-4 ml-2">
+                <input type="text" placeholder="locale" name="locale" class="two_inputs_line">
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-xs-4 offset-2">
+                <a href="">2 travellers</a>
+            </div>
+            <div class="col-xs-4 offset-2">
+                <a href="">economy</a>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-xs-10 offset-1 mb-5">
+                <input type="submit" value="Fly away!" id="submit_button">
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--<button id="roundtrip" href="#">Roundtrip</button>-->
+<!--<button id="one_way" href="#">One Way</button>-->
+
+
+<!-- SELECTION END -->
+{% endblock %}
