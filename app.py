@@ -261,6 +261,8 @@ def logout():
         flash(f'You have been logged out successfully: {email}', 'info')
     session.pop('firstname', None)
     session.pop('lastname', None)
+    session.pop('id', None)
+    session.pop('email', None)
     return redirect(url_for('signin'))
 
 
@@ -289,7 +291,7 @@ def process_flights():
         db.session.add(flight)
         db.session.commit()
         flash('ticket added to your cart!')
-        return render_template('flight_result.html')
+        return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city)
         #return user_id + origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
     else:
         flash('An Error occured!')
