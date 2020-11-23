@@ -225,10 +225,10 @@ def signin():
         session['lastname'] = user_session.lastname
         session['email'] = user_session.email
         session['id'] = user_session._id # !NEED UNDERSCORE!
-        return redirect(url_for('user'))
+        return redirect(url_for('index'))
     else:
         if 'firstname' in session:
-            return redirect(url_for('user'))
+            return redirect(url_for('index'))
 
         return render_template('signin.html')
 
@@ -291,12 +291,12 @@ def process_flights():
         flight = flights(user_id, carrier_id, price, symbol, origin_airport, destination_airport, date, time)
         db.session.add(flight)
         db.session.commit()
-        flash('ticket added to your cart!')
+        flash('Ticket added to your cart!')
         return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city)
         #return user_id + origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
     else:
         flash('An Error occured!')
-        return render_template('flight_result.html')
+        return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city)
 
 
 @app.route('/cart')
