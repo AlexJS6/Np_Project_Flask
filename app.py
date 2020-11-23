@@ -156,6 +156,8 @@ def change_profile():
 def change_profile_processing():
     if request.method == 'POST':
         if not request.form['firstname'] or not request.form['lastname'] or not request.form['email']:
+            user = users.query.filter_by(firstname = session['firstname'], lastname = session['firstname']).first()
+            session.pop('_flashes', None)
             flash('All fields are required.')
             return render_template('change_profile.html')
         else:
@@ -216,6 +218,7 @@ def user():
 
 @app.route('/signin', methods = ['POST', 'GET'])
 def signin():
+    #session.pop('_flashes', None)
     if request.method == 'POST':
         session.permanent = True
         email = request.form['email']
