@@ -241,14 +241,15 @@ def signup():
         if not request.form['firstname'] or not request.form['lastname'] or not request.form['email'] or not request.form['password'] or not request.form['passwordconfirm']:
             flash('All fields are required.')
             return render_template('signup.html')
+            #flash('This is already taken.')
         else:
             user = users(request.form['firstname'], request.form['lastname'], request.form['email'], request.form['password'])
             db.session.add(user)
             db.session.commit()
             #session['firstname'] = users(request.form['firstname'])
             #session['lastname'] = users(request.form['lastname'])
-            #flash(f'Welcome {user[0]}!')
-            return redirect(url_for('sign_in'))
+            flash('Registration was successful, you just need to login now.')
+            return redirect(url_for('signin'))
     if request.method == 'GET':
         return render_template('signup.html')
 
