@@ -10,7 +10,7 @@ from api import api
 #from session import session
 
 app = Flask(__name__)
-mail = Mail(app)
+
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465 #maybe change
@@ -18,6 +18,7 @@ app.config['MAIL_USERNAME'] = 'VectorNpProject@gmail.com'
 app.config['MAIL_PASSWORD'] = 'npflask22'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
 
 app.register_blueprint(second, url_prefix="")
 
@@ -36,7 +37,7 @@ db = SQLAlchemy(app)
 @app.route('/email_processing')
 def email_processing():
     if 'email' in session:
-        msg = Message('Vector password reset', sender = 'VectorNpProject@gmail.com', recipients= session['email'])
+        msg = Message('Vector password reset', sender = 'VectorNpProject@gmail.com', recipients= [session['email']])
         msg.body = f"Hello {session['firstname']} {session['lastname']}!"
         mail.send(msg)
         return 'message sent!'
