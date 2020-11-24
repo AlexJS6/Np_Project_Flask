@@ -318,7 +318,7 @@ def process_flights():
 @app.route('/cart')
 def cart():
     #flights = flights.query.all()  filter_by(flights._id == session['id'])
-
+    
     return render_template('cart.html', flights = flights.query.filter_by(user_id = session['id']).all())
 
 

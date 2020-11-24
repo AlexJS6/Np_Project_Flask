@@ -10,11 +10,18 @@
     {% endif %}
 {% endwith %}
 
-<h2>This is the cheapest flight:</h2>
+<div class="row my-3">
+    <div class="col-xs-8 offset-1">
+        <h3>This is the cheapest flight:</h3>
+    </div>
+</div>
+
 <!--Bg-image for the div-->
 <div class="container" id="ticket">  
     <div class="row">
-        <h3>departure:</h3>
+        <div class="col-xs-8 offset-3">
+            <h3>departure:</h3>
+        </div>
     </div>
     <div class="row">
         <div class="col-xs-4 offset-1">
@@ -33,7 +40,9 @@
         </div>
     </div>
     <div class="row">
-        <h3>Destination:</h3>
+        <div class="col-xs-8 offset-3">
+            <h3>Destination:</h3>
+        </div>
     </div>
     <div class="row">
         <div class="col-xs-4 offset-1">
@@ -69,5 +78,15 @@
         </div>
     </div>
 </div>
-<a href="http://127.0.0.1:5000/api/processing?origin_country={{ origin_country }}&origin_city={{ origin_city }}&origin_airport={{ origin_airport }}&date={{ date }}&time={{ time }}&destination_country={{ destination_country }}&destination_city={{ destination_city }}&destination_airport={{ destination_airport }}&name={{ name }}&carrier_id={{ carrier_id }}&price={{ price }}&symbol={{ symbol }}">cick here</a>
+
+<div class="row mt-4 mb-5">
+    <div class="col-xs-3 offset-2">
+        <a href="/">Homepage</a>
+    </div>
+    <div class="col-xs-3 offset-3">
+        <a href="http://127.0.0.1:5000/api/processing?origin_country={{ origin_country }}&origin_city={{ origin_city }}&origin_airport={{ origin_airport }}&date={{ date }}&time={{ time }}&destination_country={{ destination_country }}&destination_city={{ destination_city }}&destination_airport={{ destination_airport }}&name={{ name }}&carrier_id={{ carrier_id }}&price={{ price }}&symbol={{ symbol }}">Add to Cart</a>
+    </div>
+</div>
+
+
 {% endblock %}
