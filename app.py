@@ -40,7 +40,8 @@ def email_processing():
         msg = Message('Vector password reset', sender = 'VectorNpProject@gmail.com', recipients= [session['email']])
         msg.body = f"Hello {session['firstname']} {session['lastname']}!"
         mail.send(msg)
-        return 'message sent!'
+        flash('password sent, look at your emails')
+        return render_template('change_profile.html', firstname = session['firstname'], lastname = session['lastname'], email = session['email'])
     else:
         redirect(url_for('index'))
 
