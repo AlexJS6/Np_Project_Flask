@@ -64,3 +64,19 @@
     border-radius: 7px;
     box-shadow: 2px 2px 2px gray;
 }
+.animated_color {
+    color: linear-gradient(267deg, #0b84b8, #0bb890, #74c031, #bfc031, #cd1d17, #cd1769, #a817cd, #5817cd, #13059e);
+
+    -webkit-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+}
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 51%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 51%}
+}
