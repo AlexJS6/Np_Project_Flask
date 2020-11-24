@@ -139,6 +139,17 @@ def index():
 
 
 
+@app.route('/car', methods = ['GET', 'POST'])
+def car():
+    if 'firstname' in session:
+        return render_template('cars.html', navbarname = f"Hello {session['firstname']}")
+    else:
+        return render_template('cars.html', navbarname = 'You need to sign in to purchase')
+
+
+
+
+
 @app.route('/change_profile')
 def change_profile():
     if 'firstname' in session:

@@ -47,6 +47,29 @@ def flight_api():
 
 
 @api.route('/car', methods = ['POST', 'GET'])
-def flight_api():
+def car_api():
     if request.method == 'GET':
+        pickup_location = request.args.get('pickup_location')
+        pickup_date = request.args.get('pickup_date') + 'T' + request.args.get('pickup_time')
+        
+        return_location = request.args.get('return_location')
+        return_date = request.args.get('return_date') + 'T' + request.args.get('return_time')
+        
+
+        url = f"https://priceline-com.p.rapidapi.com/cars/{str(pickup_location)}"
+
+        querystring = {"return_date":str(return_date),"pickup_date":str(pickup_date),"return_location_id":str(return_location)}
+
+        headers = {
+            'x-rapidapi-key': "089d02225bmshefa31c6ca5f2456p154c11jsnebd679e760b4",
+            'x-rapidapi-host': "priceline-com.p.rapidapi.com"
+            }
+
+        #return return_location
+        return requests.request('GET', url, headers = headers, params = querystring).json()
+
+        #response = requests.request("GET", url, headers=headers, params=querystring)
+
+        #print(response.text)
+        
         
