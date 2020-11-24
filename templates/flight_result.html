@@ -14,23 +14,57 @@
 <!--Bg-image for the div-->
 <div class="container" id="ticket">  
     <div class="row">
-        <div class="col-xs-8 offset-2">
-            <h3>departure:</h3>
-            <p>Country: {{ origin_country }}</p>
-            <p>City: {{ origin_city }}</p>
-            <p>Airport: {{ origin_airport }}</p>
-            <p>Leaving the {{ date }} at {{ time }}</p>
+        <h3>departure:</h3>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 offset-1">
+            <p class="ticket_text">Country: {{ origin_country }}</p>
         </div>
+        <div class="col-xs-4 offset-2">
+            <p class="ticket_text">City: {{ origin_city }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 offset-1">
+            <p class="ticket_text">Airport: {{ origin_airport }}</p>
+        </div>
+        <div class="col-xs-4 offset-1">
+            <p class="ticket_text">Leaving the {{ date }} at {{ time }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <h3>Destination:</h3>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 offset-1">
+            <p class="ticket_text">Country: {{ destination_country }}</p>
+        </div>
+        <div class="col-xs-4 offset-2">
+            <p class="ticket_text">City: {{ destination_city }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 offset-1">
+            <p class="ticket_text">Airport: {{ destination_airport }}</p>
+        </div>
+        <div class="col-xs-4 offset-1">
+            <h5 class="ticket_text">The flight is from {{ name }} with the id '{{ carrier_id }}' and costs {{ price }} {{ symbol }}.</h5>
+        </div>
+    </div>
+
+    <div class="row">
+
+    
         <div class="col-xs-8 offset-2">
-            <h3>Destination:</h3>
-            <p>Country: {{ destination_country }}</p>
-            <p>City: {{ destination_city }}</p>
-            <p>Airport: {{ destination_airport }}</p>
+
+
+
+
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <h4>The flight is from {{ name }} with the id '{{ carrier_id }}' and costs {{ price }} {{ symbol }}.</h4>
+            
             <!--<p>Direct: {{ direct }}</p>-->
         </div>
     </div>

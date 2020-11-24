@@ -57,7 +57,7 @@
     font-size: large;
 }
 #ticket {
-    background: url('../images/ticket.jpg');
+    background: url('../images/new_new_ticket.jpg');
 }
 .two_inputs_line {
     border: 1px solid gray;
@@ -79,4 +79,7 @@
     0%{background-position:0% 51%}
     50%{background-position:100% 50%}
     100%{background-position:0% 51%}
+}
+.ticket_text {
+    font-weight: 500;
 }

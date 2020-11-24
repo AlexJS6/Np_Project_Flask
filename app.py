@@ -137,7 +137,7 @@ def index():
     if 'firstname' in session:
         return render_template('index.html', navbarname = f"Hello {session['firstname']}")
     else:
-        return render_template('index.html', navbarname = 'You need to sign in to purchase')
+        return render_template('index.html')
 
 
 
@@ -162,7 +162,7 @@ def change_profile():
         password = user.password
         return render_template('change_profile.html', firstname = firstname, lastname = lastname, email = email, password = password)
     else:
-        redirect(url_for('signin'))
+        return redirect(url_for('signin'))
 
 
 @app.route('/change_profile_processing', methods = ['POST'])
