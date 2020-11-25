@@ -194,6 +194,15 @@ def change_profile():
         return redirect(url_for('signin'))
 
 
+
+        carrier_id = request.args.get('carrier_id')
+        flight = flights.query.filter_by(carrier_id = carrier_id).first()
+        db.session.delete(flight)
+        db.session.commit()
+        flash('Flight was deleted successfully.', 'success')
+        return redirect(url_for('cart'))
+
+
 @app.route('/delete_user', methods = ['GET'])
 def delete_user():
     if request.method == 'GET':
@@ -201,6 +210,10 @@ def delete_user():
             flash('A problem has occured.', 'error')
             return redirect(url_for('change_profile'))
         else:
+            user_id = request.args.get('user_id')
+            user = users.query.filter_by(_id = user_id).first()
+            db.session.delete(user)
+            db.session.commit()
             flash('User deleted', 'success')
             return redirect(url_for('change_profile'))
 
