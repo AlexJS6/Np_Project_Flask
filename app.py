@@ -34,14 +34,23 @@ app.permanent_session_lifetime = timedelta(hours = 24)
 
 db = SQLAlchemy(app)
 
+
 def random_pwd():
-    pass
+    pwd = ''
+    for x in range(0, 11):
+        if x % 2 == 0:
+            pwd += chr(random.randint(97, 122))
+        else:
+            pwd += str(random.randint(0, 9))
+    return pwd
+
 
 @app.route('/email_processing')
 def email_processing():
     if 'email' in session:
         msg = Message('Vector password reset', sender = 'VectorNpProject@gmail.com', recipients= [session['email']])
-        #random_pwd = 
+        password = random_pwd()
+        #user = users.query.filter_by(id = session['id'])
         msg.body = f"Hello {session['firstname']} {session['lastname']}!"
         mail.send(msg)
         flash('password sent, look at your emails', 'success')
