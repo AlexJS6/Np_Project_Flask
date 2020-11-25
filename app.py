@@ -50,7 +50,8 @@ def email_processing():
     if 'email' in session:
         msg = Message('Vector password reset', sender = 'VectorNpProject@gmail.com', recipients= [session['email']])
         password = random_pwd()
-        user = users.query.filter_by(_id = session['id']).first()
+        print(session['email'])
+        user = users.query.filter_by(email = session['email']).first()
         user.password = password
         db.session.commit
         msg.body = f"Hello {session['firstname']} {session['lastname']}! Your new password is: {password}"
@@ -60,6 +61,12 @@ def email_processing():
     else:
         flash('An error occured', 'error')
         redirect(url_for('change_profile'))
+
+
+@app.route('/password_forgotten')
+def password_forgotten():
+    pass
+
 
 
 
@@ -100,6 +107,7 @@ class users(db.Model):
     lastname = db.Column(db.String(100))
     email = db.Column(db.String(100))
     password = db.Column(db.String(100))
+    status = db.Column(db.String(100), default = 'guest')
 
 
     def __init__(self, firstname, lastname, email, password):
