@@ -15,7 +15,7 @@ def flight_api():
         outboundpartialdate = request.args.get('outboundpartialdate')
         
         if country is None or currency is None or locale is None or originplace is None or destinationplace is None or outboundpartialdate is None:
-            flash('All fields are required!', 'success')
+            flash('All fields are required!', 'error')
             redirect(url_for('index'))
         else:
             url = f"https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/{country}/{currency}/{locale}/{originplace}/{destinationplace}/{outboundpartialdate}"
@@ -49,31 +49,42 @@ def flight_api():
 
 
 
+@api.route('/hotel', methods = ['GET', 'POST'])
+def hotel_api():
+    if request.method == 'GET':
+        check_in = request.args.get('check_in')
+        check_out = request.args.get('check_out')
+        latitude = request.args.get('latitude')
+        longitude = request.args.get('longitude')
+        locale = request.args.get('locale')
+        rooms = request.args.get('rooms')
+        currency = request.args.get('currency')
+        
+        if check_in is None or check_out is None or latitude is None or longitude is None or locale is None or rooms is None or currency is None:
+            flash('All fields are required!', 'error')
+            redirect(url_for('hotels'))
+        else:
 
-    @api.route('/car', methods = ['POST', 'GET'])
-    def car_api():
-        if request.method == 'GET':
-            pickup_location = request.args.get('pickup_location')
-            pickup_date = request.args.get('pickup_date') + 'T' + request.args.get('pickup_time')
-            
-            return_location = request.args.get('return_location')
-            return_date = request.args.get('return_date') + 'T' + request.args.get('return_time')
-            
+            url = "https://hotels-com-free.p.rapidapi.com/srle/listing/v1/brands/hotels.com"
 
-            url = f"https://priceline-com.p.rapidapi.com/cars/{str(pickup_location)}"
-
-            querystring = {"return_date":str(return_date),"pickup_date":str(pickup_date),"return_location_id":str(return_location)}
+            querystring = {"checkIn": str(check_in),"checkOut": str(check_out),"lat": str(latitude),"lon": str(longitude),"locale": str(locale),"rooms": str(rooms),"currency": str(currency)}
 
             headers = {
                 'x-rapidapi-key': "089d02225bmshefa31c6ca5f2456p154c11jsnebd679e760b4",
-                'x-rapidapi-host': "priceline-com.p.rapidapi.com"
+                'x-rapidapi-host': "hotels-com-free.p.rapidapi.com"
                 }
 
-            #return return_location
-            return requests.request('GET', url, headers = headers, params = querystring).json()
+            #return requests.request('GET', url, headers = headers, params = querystring).json()
 
             #response = requests.request("GET", url, headers=headers, params=querystring)
+            
+            response = requests.request("GET", url, headers=headers, params=querystring).json()
 
-            #print(response.text)
-        
-        
+            #name = response['data']['body']['searchResults']['results'][0]['name']
+            #price = response['data']['body']['searchResults']['results'][0]['ratePlan']['price']['current']
+            #country = response['data']['body']['searchResults']['results'][0]['address']['countryName']
+            #locality = response['data']['body']['searchResults']['results'][0]['address']['locality']
+            #street = response['data']['body']['searchResults']['results'][0]['address']['streetAddress']
+            #rating = str(float(response['data']['body']['searchResults']['results'][0]['guestReviews']['rating'])*2)
+            return response['data']['body']['searchResults']['results'][0]
+            return render_template('hotel_result.html', name = name, price = price, country = country, locality = locality, street = street, rating = rating, navbarname = f"Hello {session['firstname']}")

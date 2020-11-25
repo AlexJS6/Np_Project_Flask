@@ -15,7 +15,7 @@
         <a href="">
             <i class="fas fa-subway fa-3x"></i>
         </a>
-        <h5 class="pt-2">Cars</h5>
+        <h5 class="pt-2">Hotels</h5>
     </div>
     <div class="col-xs-3 px-3 pt-3 mt-4 ml-2 pb-2">
         <a href="">
@@ -42,39 +42,43 @@
     D<input type="text" placeholder="outboundpartialdate" name="outboundpartialdate">
     <input type="submit" value="GO">
 </form>-->
-<form action="/api/car" method="GET">
+<form action="/api/hotel" method="GET">
     <div class="container my-3" id="selection_container">
         <div class="row">
             <div class="col-xs-4 mt-3 ml-3">
-                <label for="pickup_location">pickup location</label>
-                <input type="text" placeholder="VIE" name="pickup_location" class="two_inputs_line">
+                <label for="check_in">check in</label>
+                <input type="text" placeholder="VIE" name="check_in" class="two_inputs_line">
             </div>
             <div class="col-xs-4 mt-3 ml-2">
-                <label for="pickup_date">pickup date</label>
-                <input type="text" placeholder="YYYY-MM-DD" name="pickup_date" class="two_inputs_line">
+                <label for="check_out">check out</label>
+                <input type="text" placeholder="YYYY-MM-DD" name="check_out" class="two_inputs_line">
             </div>
             <div class="col-xs-4 mt-3 ml-2">
-                <label for="pickup_time">pickup time</label>
-                <input type="text" placeholder="hh:mm" name="pickup_time" class="two_inputs_line">
+                <label for="latitude">latitude</label>
+                <input type="text" placeholder="hh:mm" name="latitude" class="two_inputs_line">
             </div>
         </div>
         <div class="row">
             <div class="col-xs-4 mt-3 ml-3">
-                <label for="return_location">return location</label>
-                <input type="text" placeholder="VIE" name="return_location" class="two_inputs_line">
+                <label for="longitude">longitude</label>
+                <input type="text" placeholder="VIE" name="longitude" class="two_inputs_line">
             </div>
             <div class="col-xs-4 mt-3 ml-2">
-                <label for="return_date">return date</label>
-                <input type="text" placeholder="YYYY-MM-DD" name="return_date" class="two_inputs_line">
+                <label for="locale">locale</label>
+                <input type="text" placeholder="YYYY-MM-DD" name="locale" class="two_inputs_line">
             </div>
             <div class="col-xs-4 mt-3 ml-2">
-                <label for="return_time">return time</label>
-                <input type="text" placeholder="hh:mm" name="return_time" class="two_inputs_line">
+                <label for="rooms">rooms</label>
+                <input type="text" placeholder="hh:mm" name="rooms" class="two_inputs_line">
+            </div>
+            <div class="col-xs-4 mt-3 ml-2">
+                <label for="currency">currency</label>
+                <input type="text" placeholder="hh:mm" name="currency" class="two_inputs_line">
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-xs-10 offset-1 mb-5">
-                <input type="submit" value="Ride away!" id="submit_button">
+                <input type="submit" value="Book now!" id="submit_button">
             </div>
         </div>
     </div>
