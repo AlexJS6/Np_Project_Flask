@@ -194,6 +194,19 @@ def change_profile():
         return redirect(url_for('signin'))
 
 
+@app.route('/delete_user', methods = ['GET'])
+def delete_user():
+    if request.method == 'GET':
+        if not request.args.get('user_id'):
+            flash('A problem has occured.', 'error')
+            return redirect(url_for('change_profile'))
+        else:
+            flash('User deleted', 'success')
+            return redirect(url_for('change_profile'))
+
+
+
+
 @app.route('/change_profile_processing', methods = ['POST'])
 def change_profile_processing():
     if request.method == 'POST':

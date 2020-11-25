@@ -41,18 +41,19 @@
 {% if users %}
     <table>
         <thead>
-            <td><h3>firstname</h3></td>
-            <td><h3>lastname</h3></td>
-            <td><h3>email</h3></td>
-            <td><h3>password</h3></td>
+            <td><h6>firstname</h6></td>
+            <td><h6>lastname</h6></td>
+            <td><h6>email</h6></td>
+            <td><h6>password</h6></td>
         </thead>
         <tbody>
             {% for user in users %}
             <tr>
-                <td><h3>{{ user.firstname }}</h3></td>
-                <td><h3>{{ user.lastname }}</h3></td>
-                <td><h3>{{ user.email }}</h3></td>
-                <td><h3>{{ user.password }}</h3></td>
+                <td><p>{{ user.firstname }}</p></td>
+                <td><p>{{ user.lastname }}</p></td>
+                <td><p>{{ user.email }}</p></td>
+                <td><p>{{ user.password }}</p></td>
+                <td><a href="http://127.0.0.1:5000/delete_user?user_id={{ user._id }}"><p style="color: red;">delete</p></a></td>
             </tr>
             {% endfor %}
         </tbody>
