@@ -330,7 +330,7 @@ def cart():
 
 @app.route('/troll')
 def troll():
-    return 'HAHA YOU CANT PURCHASE!'
+    return '<h1 style="text-decoration: underline overline dotted red">HAHA YOU CANT PURCHASE!</h1>'
 
 if __name__ == "__main__":
     db.create_all()
