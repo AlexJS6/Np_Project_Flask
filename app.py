@@ -323,39 +323,93 @@ def logout():
 
 @app.route('/api/processing', methods = ['GET'])
 def process_flights():
-    if request.method == 'GET':
-        user_id = str(session['id'])
-        origin_country = request.args.get('origin_country')
-        origin_city = request.args.get('origin_city')
-        origin_airport = request.args.get('origin_airport')
-        date = request.args.get('date')
-        time = request.args.get('time')
-        destination_country = request.args.get('destination_country')
-        destination_city = request.args.get('destination_city')
-        destination_airport = request.args.get('destination_airport')
-        name = request.args.get('name')
-        carrier_id = request.args.get('carrier_id')
-        price = request.args.get('price')
-        symbol = request.args.get('symbol')
-        #user = users.query.filter_by(firstname='ok').first()
-        #lastname = session['lastname']
+    if 'firstname' in session:
+        if request.method == 'GET':
+            user_id = str(session['id'])
+            origin_country = request.args.get('origin_country')
+            origin_city = request.args.get('origin_city')
+            origin_airport = request.args.get('origin_airport')
+            date = request.args.get('date')
+            time = request.args.get('time')
+            destination_country = request.args.get('destination_country')
+            destination_city = request.args.get('destination_city')
+            destination_airport = request.args.get('destination_airport')
+            name = request.args.get('name')
+            carrier_id = request.args.get('carrier_id')
+            price = request.args.get('price')
+            symbol = request.args.get('symbol')
+            #user = users.query.filter_by(firstname='ok').first()
+            #lastname = session['lastname']
 
-        flight = flights(user_id, carrier_id, price, symbol, origin_airport, destination_airport, date, time)
-        db.session.add(flight)
-        db.session.commit()
-        flash('Ticket added to your cart!', 'success')
-        return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city, navbarname = f"Hello {session['firstname']}")
-        #return user_id + origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
+            flight = flights(user_id, carrier_id, price, symbol, origin_airport, destination_airport, date, time)
+            db.session.add(flight)
+            db.session.commit()
+            flash('Ticket added to your cart!', 'success')
+            return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city, navbarname = f"Hello {session['firstname']}")
+            #return user_id + origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
+        else:
+            flash('An Error occured!', 'error')
+            return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city, navbarname = f"Hello {session['firstname']}")
     else:
-        flash('An Error occured!', 'error')
-        return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city, navbarname = f"Hello {session['firstname']}")
+        if request.method == 'GET':
+            origin_country = request.args.get('origin_country')
+            origin_city = request.args.get('origin_city')
+            origin_airport = request.args.get('origin_airport')
+            date = request.args.get('date')
+            time = request.args.get('time')
+            destination_country = request.args.get('destination_country')
+            destination_city = request.args.get('destination_city')
+            destination_airport = request.args.get('destination_airport')
+            name = request.args.get('name')
+            carrier_id = request.args.get('carrier_id')
+            price = request.args.get('price')
+            symbol = request.args.get('symbol')
+            #user = users.query.filter_by(firstname='ok').first()
+            #lastname = session['lastname']
+        flash('You need to log in to add in cart.', 'error')
+        return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city)
+
+
+
+@app.route('/api/hotel_processing', methods = ['GET'])
+def process_flight():
+    if 'firstname' in session:
+        if request.method == 'GET':
+            user_id = str(session['id'])
+            country = request.args.get('country')
+            locality = request.args.get('locality')
+            street = request.args.get('street')
+            name = request.args.get('name')
+            price = request.args.get('price')
+            rating = request.args.get('rating')
+
+            hotel = hotels(user_id, country, locality, street, name, price, rating)
+            db.session.add(hotel)
+            db.session.commit()
+            flash('Hotel added to your cart!', 'success')
+            return render_template('hotel_result.html',  country = country, locality = locality, street = street, name = name, price = price, rating = rating, navbarname = f"Hello {session['firstname']}")
+            #return user_id + origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
+        else:
+            flash('An Error occured!', 'error')
+            return render_template('hotel_result.html',  country = country, locality = locality, street = street, name = name, price = price, rating = rating, navbarname = f"Hello {session['firstname']}")
+    else:
+        if request.method == 'GET':
+            country = request.args.get('country')
+            locality = request.args.get('locality')
+            street = request.args.get('street')
+            name = request.args.get('name')
+            price = request.args.get('price')
+            rating = request.args.get('rating')
+        flash('You need to log in to add in cart.', 'error')
+        return render_template('hotel_result.html',  country = country, locality = locality, street = street, name = name, price = price, rating = rating)
+
 
 
 @app.route('/cart')
 def cart():
     #flights = flights.query.all()  filter_by(flights._id == session['id'])
     if 'id' in session:
-        return render_template('cart.html', flights = flights.query.filter_by(user_id = session['id']).all(), navbarname = f"Hello {session['firstname']}")
+        return render_template('cart.html', hotels = hotels.query.filter_by(user_id = session['id']).all(),flights = flights.query.filter_by(user_id = session['id']).all(), navbarname = f"Hello {session['firstname']}")
     else:
         flash('You need to sign in first', 'error')
         return redirect(url_for('signin'))

@@ -65,12 +65,12 @@
 
 
 <div class="row">
-    <h2>Your train rides</h2>
+    <h2>Your Hotels</h2>
 </div>
-{% if trains %}
-    {% for train in trains %}
+{% if hotels %}
+    {% for hotel in hotels %}
     <div class="row">
-        <h3>Trains</h3>
+        <h3>Hotels: {{ hotel.name }}</h3>
     </div>
     {% endfor %}
 {% else %}
