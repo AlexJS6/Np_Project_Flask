@@ -8,28 +8,54 @@
   {% endfor %}
 {% endwith %}
 
-<div class="row">
-    <div class="col-xs-2 offset-5">
-        <h1>This is your cart</h1>
+<div class="row my-3">
+    <div class="col-xs-8 offset-3 mr-n3">
+        <h2>This is your cart</h2>
     </div>
 </div>
 <div class="row">
-    <h2>Your flights:</h2>
+    <div class="col-xs-6 offset-4 mb-2">
+        <h3 style="text-decoration: underline;">Your flights:</h3>
+    </div>
+
 </div>
 {% if flights %}
     {% for flight in flights %}
-    <div class="row">
-        <h3>flight id: {{ flight.carrier_id }}</h3>
-    </div>
-    <div class="row">
-        <p>Leaves from {{ flight.departure_airport }} and goes to {{ flight.destination_airport }} the {{ flight.date }} at {{ flight.time }}</p>
-        <p>The price will be {{ flight.price }} {{ flight.symbol }} </p>
-    </div>
+        <div class="ticket_container mt-2 mb-3 mx-3">
+            <div class="row my-2">
+                <div class="col-xs-6 offset-4">
+                    <h4>flight id: {{ flight.carrier_id }}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8 offset-2">
+                    <p class="ticket_text">Leaves from {{ flight.departure_airport }}.</p> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-10 offset-1">
+                    <p class="ticket_text">and goes to {{ flight.destination_airport }} the {{ flight.date }} at {{ flight.time }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 offset-3">
+                    <p class="ticket_text">The price will be {{ flight.price }} {{ flight.symbol }} </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 ml-2 purchase">
+                    <a href="/troll"></a>
+                </div>
+            </div>
+        </div>
+
 
     {% endfor %}
 {% else %}
-    <h3>No flights</h3>
+    <h4>No flights</h4>
 {% endif %}
+</div>
+
 
 <div class="row">
     <h2>Your train rides</h2>

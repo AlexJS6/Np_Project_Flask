@@ -327,6 +327,11 @@ def cart():
         flash('You need to sign in first', 'error')
         return redirect(url_for('signin'))
 
+
+@app.route('/troll')
+def troll():
+    return 'HAHA YOU CANT PURCHASE!'
+
 if __name__ == "__main__":
     db.create_all()
     app.run(debug=True)
