@@ -111,6 +111,29 @@ class flights(db.Model):
 
 
 
+class hotels(db.Model):
+    _id = db.Column('id', db.Integer, primary_key = True)
+    user_id = db.Column('user_id', db.Integer)
+    country = db.Column('country', db.String(100))
+    locality = db.Column('locality', db.String(100))
+    street = db.Column('street', db.String(100))
+    name = db.Column('name', db.String(100))
+    price = db.Column('price', db.Integer)
+    rating = db.Column('rating', db.String(100))
+    
+
+    def __init__(self, user_id, country, locality, street, name, price, rating):
+        self.user_id = user_id
+        self.country = country
+        self.locality = locality
+        self.street = street
+        self.name = name
+        self.price = price
+        self.rating = rating
+
+
+
+
 
 @app.route('/', methods = ['GET', 'POST'])
 def index():
