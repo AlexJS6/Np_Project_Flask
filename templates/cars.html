@@ -3,6 +3,12 @@
 {% block content %} 
 
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <p class="{{ category }}">{{ message }}</p>
+  {% endfor %}
+{% endwith %}
+
   <!-- CATEGORYS START-->
   <div class="row">
     <div class="col-xs-3 offset-2 pt-3 mt-4 px-3 pb-2" style="background-color: #ddd; border-bottom: 6px solid rgb(41, 170, 202);">

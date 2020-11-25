@@ -40,10 +40,11 @@ def email_processing():
         msg = Message('Vector password reset', sender = 'VectorNpProject@gmail.com', recipients= [session['email']])
         msg.body = f"Hello {session['firstname']} {session['lastname']}!"
         mail.send(msg)
-        flash('password sent, look at your emails')
-        return render_template('change_profile.html', firstname = session['firstname'], lastname = session['lastname'], email = session['email'])
+        flash('password sent, look at your emails', 'success')
+        return redirect(url_for('change_profile'))
     else:
-        redirect(url_for('index'))
+        flash('An error occured', 'error')
+        redirect(url_for('change_profile'))
 
 
 
@@ -171,7 +172,7 @@ def change_profile_processing():
         if not request.form['firstname'] or not request.form['lastname'] or not request.form['email']:
             user = users.query.filter_by(firstname = session['firstname'], lastname = session['firstname']).first()
             session.pop('_flashes', None)
-            flash('All fields are required.')
+            flash('All fields are required.', 'error')
             return render_template('change_profile.html')
         else:
             old_firstname = session['firstname']
@@ -186,7 +187,7 @@ def change_profile_processing():
             firstname = user.firstname
             lastname = user.lastname
             email = user.email
-            flash('Changes done successfully')
+            flash('Changes done successfully', 'success')
             return render_template('change_profile.html', firstname = firstname, lastname = lastname, email = email)
 
 
@@ -278,10 +279,10 @@ def logout():
         session.pop('lastname', None)
         session.pop('id', None)
         session.pop('email', None)
-        flash('Logged out successfully.')
+        flash('Logged out successfully.', 'success')
         return redirect(url_for('signin'))
     else:
-        flash('You are not logged in yet.')
+        flash('You are not logged in yet.', 'error')
         return redirect(url_for('signin'))
 
 
@@ -309,11 +310,11 @@ def process_flights():
         flight = flights(user_id, carrier_id, price, symbol, origin_airport, destination_airport, date, time)
         db.session.add(flight)
         db.session.commit()
-        flash('Ticket added to your cart!')
+        flash('Ticket added to your cart!', 'success')
         return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city, navbarname = f"Hello {session['firstname']}")
         #return user_id + origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
     else:
-        flash('An Error occured!')
+        flash('An Error occured!', 'error')
         return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city, navbarname = f"Hello {session['firstname']}")
 
 
@@ -323,8 +324,8 @@ def cart():
     if 'id' in session:
         return render_template('cart.html', flights = flights.query.filter_by(user_id = session['id']).all(), navbarname = f"Hello {session['firstname']}")
     else:
-        flash('You need to sign in first')
-        return redirect(url_for('index'))
+        flash('You need to sign in first', 'error')
+        return redirect(url_for('signin'))
 
 if __name__ == "__main__":
     db.create_all()
