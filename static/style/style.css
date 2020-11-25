@@ -57,7 +57,7 @@
     font-size: large;
 }
 #ticket {
-    background: url('../images/new_new_ticket.jpg');
+    background: url('../images/ticket.jpg');
 }
 .two_inputs_line {
     border: 1px solid gray;
@@ -75,7 +75,7 @@
     color: #3d3;
 }
 .ticket_container {
-    background: url('../images/new_new_ticket.jpg');
+    background: url('../images/ticket.jpg');
     border: solid 3px #bbb;
 }
 .purchase {
