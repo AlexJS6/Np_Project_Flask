@@ -160,7 +160,7 @@ def change_profile():
         lastname = user.lastname
         email = user.email
         password = user.password
-        return render_template('change_profile.html', firstname = firstname, lastname = lastname, email = email, password = password)
+        return render_template('change_profile.html', firstname = firstname, lastname = lastname, email = email, navbarname = f"Hello {session['firstname']}")
     else:
         return redirect(url_for('signin'))
 
@@ -214,7 +214,7 @@ def flight_result():
     if 'firstname' in session:
         return render_template('flight_result.html', navbarname = f"Hello {session['firstname']}")
     else:
-        return render_template('flight_result.html', navbarname = 'You need to sign in to purchase')
+        return render_template('flight_result.html')
 
 
 
@@ -273,14 +273,16 @@ def signup():
 
 @app.route('/logout')
 def logout():
-    if 'email' in session:
-        email = session['email']
-        flash(f'You have been logged out successfully: {email}', 'info')
-    session.pop('firstname', None)
-    session.pop('lastname', None)
-    session.pop('id', None)
-    session.pop('email', None)
-    return redirect(url_for('signin'))
+    if 'id' in session:
+        session.pop('firstname', None)
+        session.pop('lastname', None)
+        session.pop('id', None)
+        session.pop('email', None)
+        flash('Logged out successfully.')
+        return redirect(url_for('signin'))
+    else:
+        flash('You are not logged in yet.')
+        return redirect(url_for('signin'))
 
 
 
@@ -308,19 +310,21 @@ def process_flights():
         db.session.add(flight)
         db.session.commit()
         flash('Ticket added to your cart!')
-        return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city)
+        return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city, navbarname = f"Hello {session['firstname']}")
         #return user_id + origin_country + origin_city + origin_airport + date + time + destination_country + destination_city + destination_airport + name + carrier_id + price + symbol
     else:
         flash('An Error occured!')
-        return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city)
+        return render_template('flight_result.html',  date = date, time = time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city, navbarname = f"Hello {session['firstname']}")
 
 
 @app.route('/cart')
 def cart():
     #flights = flights.query.all()  filter_by(flights._id == session['id'])
-    
-    return render_template('cart.html', flights = flights.query.filter_by(user_id = session['id']).all())
-
+    if 'id' in session:
+        return render_template('cart.html', flights = flights.query.filter_by(user_id = session['id']).all(), navbarname = f"Hello {session['firstname']}")
+    else:
+        flash('You need to sign in first')
+        return redirect(url_for('index'))
 
 if __name__ == "__main__":
     db.create_all()

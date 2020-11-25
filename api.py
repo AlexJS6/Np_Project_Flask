@@ -41,7 +41,7 @@ def flight_api():
         #return str(requests.request("GET", url, headers=headers, params = querystring).json()['Quotes'][0]['MinPrice'])'''
         #return requests.request('GET', url, headers = headers, params = querystring).json()
         #return f'<div style="background-color: red"><p>{departure_date}</br>{departure_time}</br>{price}</br>{carrier_id}</br>{name}</br>{symbol}</br>{origin_country}</br>{origin_city}</br>{origin_airport}</br>{destination_country}</br>{destination_city}</br>{destination_airport}</br>{direct}</p></div>'
-        return render_template('flight_result.html', date = departure_date, time = departure_time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city, direct = direct)
+        return render_template('flight_result.html', date = departure_date, time = departure_time, price = price, carrier_id = carrier_id, name = name, symbol = symbol, origin_country = origin_country, origin_city = origin_city, origin_airport = origin_airport, destination_country = destination_country, destination_city = destination_city, destination_airport = destination_city, navbarname = f"Hello {session['firstname']}")
 
 
 
