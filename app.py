@@ -50,14 +50,17 @@ def email_processing():
     if 'email' in session:
         msg = Message('Vector password reset', sender = 'VectorNpProject@gmail.com', recipients= [session['email']])
         password = random_pwd()
-        #user = users.query.filter_by(id = session['id'])
-        msg.body = f"Hello {session['firstname']} {session['lastname']}!"
+        user = users.query.filter_by(_id = session['id']).first()
+        user.password = password
+        db.session.commit
+        msg.body = f"Hello {session['firstname']} {session['lastname']}! Your new password is: {password}"
         mail.send(msg)
-        flash('password sent, look at your emails', 'success')
+        flash('Your new password is in your emails', 'success')
         return redirect(url_for('change_profile'))
     else:
         flash('An error occured', 'error')
         redirect(url_for('change_profile'))
+
 
 
 
