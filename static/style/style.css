@@ -83,3 +83,9 @@
 .ticket_text {
     font-weight: 700;
 }
+.error {
+    color: #d33;
+}
+.success {
+    color: #3d3;
+}
