@@ -38,6 +38,26 @@
     </form>
     
 </div>
+{% if users %}
+    <table>
+        <thead>
+            <td><h3>firstname</h3></td>
+            <td><h3>lastname</h3></td>
+            <td><h3>email</h3></td>
+            <td><h3>password</h3></td>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td><h3>{{ user.firstname }}</h3></td>
+                <td><h3>{{ user.lastname }}</h3></td>
+                <td><h3>{{ user.email }}</h3></td>
+                <td><h3>{{ user.password }}</h3></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
 
 
 

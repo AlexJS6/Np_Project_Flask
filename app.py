@@ -185,7 +185,11 @@ def change_profile():
         lastname = user.lastname
         email = user.email
         password = user.password
-        return render_template('change_profile.html', firstname = firstname, lastname = lastname, email = email, navbarname = f"Hello {session['firstname']}")
+        if session['status'] == 'guest':
+            return render_template('change_profile.html', firstname = firstname, lastname = lastname, email = email, navbarname = f"Hello {session['firstname']}")
+        if session['status'] == 'admin':
+            return render_template('change_profile.html', firstname = firstname, lastname = lastname, email = email, navbarname = f"Hello {session['firstname']}", users = users.query.filter_by(status = 'guest').all())
+                #return render_template('show_all.html', users = users.query.all())
     else:
         return redirect(url_for('signin'))
 
@@ -266,6 +270,7 @@ def signin():
         session['lastname'] = user_session.lastname
         session['email'] = user_session.email
         session['id'] = user_session._id # !NEED UNDERSCORE!
+        session['status'] = user_session.status
         return redirect(url_for('index'))
     else:
         if 'firstname' in session:
