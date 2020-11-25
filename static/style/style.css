@@ -56,9 +56,7 @@
     width: 120px;
     font-size: large;
 }
-#ticket {
-    background: url('../images/ticket.jpg');
-}
+
 .two_inputs_line {
     border: 1px solid gray;
     border-radius: 7px;
@@ -89,4 +87,8 @@
     border: none;
     width: 187px;
     height: 30px;
+}
+.hotel_container {
+    background: url(../images/hotel.jpg);
+    border: solid 3px #bbb;
 }

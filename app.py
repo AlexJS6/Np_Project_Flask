@@ -210,14 +210,6 @@ def trains():
 
 
 
-@app.route('/autobus', methods = ['GET', 'POST'])
-def autobus():
-    if 'firstname' in session:
-        return render_template('autobus.html', navbarname = f"Hello {session['firstname']}")
-    else:
-        return render_template('autobus.html', navbarname = 'You need to sign in to purchase')
-
-
 
 @app.route('/flight_result')
 def flight_result():
