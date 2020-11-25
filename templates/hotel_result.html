@@ -10,7 +10,7 @@
 
 <div class="row my-3">
     <div class="col-xs-8 offset-1">
-        <h3>This is the cheapest flight:</h3>
+        <h3>This is the nearest hotel:</h3>
     </div>
 </div>
 
@@ -18,44 +18,44 @@
 <div class="container" id="ticket">  
     <div class="row">
         <div class="col-xs-8 offset-3">
-            <h3>departure:</h3>
+            <h3>Location:</h3>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-4 offset-1">
-            <p class="ticket_text">Country: {{ origin_country }}</p>
+            <p class="ticket_text">Country: {{ country }}</p>
         </div>
         <div class="col-xs-4 offset-2">
-            <p class="ticket_text">City: {{ origin_city }}</p>
+            <p class="ticket_text">Location: {{ locality }}</p>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-4 offset-1">
-            <p class="ticket_text">Airport: {{ origin_airport }}</p>
+            <p class="ticket_text">street: {{ street }}</p>
         </div>
         <div class="col-xs-4 offset-1">
-            <p class="ticket_text">Leaving the {{ date }} at {{ time }}</p>
+            <p class="ticket_text">name: {{ name }}</p>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-8 offset-3">
-            <h3>Destination:</h3>
+            <h3>Ratings and price:</h3>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-4 offset-1">
-            <p class="ticket_text">Country: {{ destination_country }}</p>
+            <p class="ticket_text">Ratings: {{ rating }} of 10</p>
         </div>
         <div class="col-xs-4 offset-2">
-            <p class="ticket_text">City: {{ destination_city }}</p>
+            <p class="ticket_text">price: {{ price }}</p>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-4 offset-1">
-            <p class="ticket_text">Airport: {{ destination_airport }}</p>
+            <p class="ticket_text">Airport}</p>
         </div>
         <div class="col-xs-4 offset-1">
-            <h5 class="ticket_text">The flight is from {{ name }} with the id '{{ carrier_id }}' and costs {{ price }} {{ symbol }}.</h5>
+            <h5 class="ticket_text">The flight is from .</h5>
         </div>
     </div>
 

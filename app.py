@@ -227,6 +227,14 @@ def flight_result():
         return render_template('flight_result.html')
 
 
+@app.route('/hotel_result')
+def hotel_result():
+    if 'firstname' in session:
+        return render_template('hotel_result.html', navbarname = f"Hello {session['firstname']}")
+    else:
+        return render_template('hotel_result.html')
+
+
 
 @app.route('/user')
 def user():

@@ -80,11 +80,11 @@ def hotel_api():
             
             response = requests.request("GET", url, headers=headers, params=querystring).json()
 
-            #name = response['data']['body']['searchResults']['results'][0]['name']
-            #price = response['data']['body']['searchResults']['results'][0]['ratePlan']['price']['current']
-            #country = response['data']['body']['searchResults']['results'][0]['address']['countryName']
-            #locality = response['data']['body']['searchResults']['results'][0]['address']['locality']
-            #street = response['data']['body']['searchResults']['results'][0]['address']['streetAddress']
-            #rating = str(float(response['data']['body']['searchResults']['results'][0]['guestReviews']['rating'])*2)
-            return response['data']['body']['searchResults']['results'][0]
+            name = response['data']['body']['searchResults']['results'][0]['name']
+            price = response['data']['body']['searchResults']['results'][0]['ratePlan']['price']['current']
+            country = response['data']['body']['searchResults']['results'][0]['address']['countryName']
+            locality = response['data']['body']['searchResults']['results'][0]['address']['locality']
+            street = response['data']['body']['searchResults']['results'][0]['address']['streetAddress']
+            rating = str(float(response['data']['body']['searchResults']['results'][0]['guestReviews']['rating'])*2)
+            #return response['data']['body']['searchResults']['results'][0]
             return render_template('hotel_result.html', name = name, price = price, country = country, locality = locality, street = street, rating = rating, navbarname = f"Hello {session['firstname']}")
