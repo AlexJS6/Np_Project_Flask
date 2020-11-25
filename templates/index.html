@@ -2,6 +2,11 @@
 {% block title %}Index{% endblock %}
 {% block content %} 
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <p class="{{ category }}">{{ message }}</p>
+  {% endfor %}
+{% endwith %}
 
   <!-- CATEGORYS START-->
   <div class="row">
