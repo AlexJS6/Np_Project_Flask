@@ -3,6 +3,7 @@ from flask_mail import Mail, Message
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 import requests
+import random
 
 #from signup_form import SignupForm
 from second import second
@@ -33,11 +34,14 @@ app.permanent_session_lifetime = timedelta(hours = 24)
 
 db = SQLAlchemy(app)
 
+def random_pwd():
+    pass
 
 @app.route('/email_processing')
 def email_processing():
     if 'email' in session:
         msg = Message('Vector password reset', sender = 'VectorNpProject@gmail.com', recipients= [session['email']])
+        #random_pwd = 
         msg.body = f"Hello {session['firstname']} {session['lastname']}!"
         mail.send(msg)
         flash('password sent, look at your emails', 'success')
@@ -331,6 +335,20 @@ def cart():
 @app.route('/troll')
 def troll():
     return '<h1 style="text-decoration: underline overline dotted red">HAHA YOU CANT PURCHASE!</h1>'
+
+
+@app.route('/delete_ticket', methods = ['GET'])
+def delete_ticket():
+    if request.method == 'GET':
+        carrier_id = request.args.get('carrier_id')
+        flight = flights.query.filter_by(carrier_id = carrier_id).first()
+        db.session.delete(flight)
+        db.session.commit()
+        flash('Flight was deleted successfully.', 'success')
+        return redirect(url_for('cart'))
+
+
+
 
 if __name__ == "__main__":
     db.create_all()
