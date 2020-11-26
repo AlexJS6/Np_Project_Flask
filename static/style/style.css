@@ -95,3 +95,6 @@
 input, label {
     display: block;
 }
+td {
+    border: 1px solid black;
+}
