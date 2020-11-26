@@ -18,22 +18,32 @@
     </div>
     <form action="/change_profile_processing" method="POST">
         <div class="row">
-            <label for="firstname">Firstname:</label>
-            <input type="text" name="firstname" value="{{ firstname }}">
+            <div class="col-xs-6 mb-3 offset-3">
+                <label for="firstname">Firstname:  </label>
+                <input type="text" name="firstname" value="{{ firstname }}">
+            </div>
         </div>
         <div class="row">
-            <label for="lastname">Lastname:</label>
-            <input type="text" name="lastname" value="{{ lastname }}">
+            <div class="col-xs-6 mb-3 offset-3">
+                <label for="lastname">Lastname:</label>
+                <input type="text" name="lastname" value="{{ lastname }}">
+            </div>
         </div>
         <div class="row">
-            <label for="email">Email:</label>
-            <input type="text" name="email" value="{{ email }}">
+            <div class="col-xs-6 mb-3 offset-3">
+                <label for="email">Email:</label>
+                <input type="text" name="email" value="{{ email }}">
+            </div>
         </div>
         <div class="row">
-            <a href="/email_processing">Change password with mail</a>
+            <div class="col-xs-6 mb-3 offset-3">
+                <input type="submit" value="Change">
+            </div>
         </div>
         <div class="row mb-5">
-            <input type="submit" value="Change">
+            <div class="col-xs-6 mb-3 offset-3">
+                <a href="/email_processing">Change password with mail</a>
+            </div>
         </div>
     </form>
     
