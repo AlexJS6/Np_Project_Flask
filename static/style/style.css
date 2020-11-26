@@ -92,3 +92,6 @@
     background: url(../images/hotel.jpg);
     border: solid 3px #bbb;
 }
+input, label {
+    display: block;
+}
