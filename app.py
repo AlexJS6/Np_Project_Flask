@@ -409,7 +409,7 @@ def process_flight():
 def cart():
     #flights = flights.query.all()  filter_by(flights._id == session['id'])
     if 'id' in session:
-        return render_template('cart.html', hotels = hotels.query.filter_by(user_id = session['id']).all(),flights = flights.query.filter_by(user_id = session['id']).all(), navbarname = f"Hello {session['firstname']}")
+        return render_template('cart.html', flights = flights.query.filter_by(user_id = session['id']).all(), hotels = hotels.query.filter_by(user_id = session['id']).all(), navbarname = f"Hello {session['firstname']}")
     else:
         flash('You need to sign in first', 'error')
         return redirect(url_for('signin'))
@@ -428,6 +428,17 @@ def delete_ticket():
         db.session.delete(flight)
         db.session.commit()
         flash('Flight was deleted successfully.', 'success')
+        return redirect(url_for('cart'))
+
+
+@app.route('/delete_hotel', methods = ['GET'])
+def delete_hotel():
+    if request.method == 'GET':
+        street = request.args.get('street')
+        hotel = hotels.query.filter_by(street = street).first()
+        db.session.delete(hotel)
+        db.session.commit()
+        flash('Hotel was deleted successfully.', 'success')
         return redirect(url_for('cart'))
 
 
