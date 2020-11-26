@@ -44,10 +44,32 @@ I used rapidApid with those 2:
 - for the hotels, hotels.com: https://rapidapi.com/yahoo.finance.low.latency/api/hotels-com-free
 
 ## Databases
+I used SQLite with SQLAlchemy:  
+
+- This table is for the users:  
+
+![users table](static/images/users_table.png)
 
 - This table is for the flights:  
 
 ![flights table](static/images/flight_table.png)
 
+- This table is for the hotels:
+
+![hotels table](static/images/hotels_table.png)
+
+
+## Some Screenshots of the site:
+
+![flight screenshot](static/images/flight_screen.png)
+
+![hotels screenshot](static/images/hotels_screen.png)
+
+![cart screenshot](static/images/cart_screen.png)
+
+
+## Hope you enjoy it!
+
+![flying gif](https://media1.giphy.com/media/P1PemPnyp4g1i/giphy.gif?cid=ecf05e47lcdj65asqe0zyvgrmrodmgzxs0azh8mv1htj8lio&rid=giphy.gif)
 
 
