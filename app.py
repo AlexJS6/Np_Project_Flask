@@ -149,7 +149,7 @@ def hotel():
     if 'firstname' in session:
         return render_template('hotels.html', navbarname = f"Hello {session['firstname']}")
     else:
-        return render_template('hotels.html', navbarname = 'You need to sign in to purchase')
+        return render_template('hotels.html')
 
 
 
